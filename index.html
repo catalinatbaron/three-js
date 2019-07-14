@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset=utf-8>
+    <title>My first three.js app</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/106/three.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+    <script src="js/three.js"></script>
+    <script>
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 0.1, 1000 );
+    var renderer = new THREE.WebGLRenderer({antialias:true});
+    renderer.setClearColor("#e5e5e5");
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    document.body.appendChild( renderer.domElement );
+    window.addEventListener('resize', () => {
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    })
+    // var geometry = new THREE.BoxGeometry( 2, 1, 1 );
+    var geometry = new THREE.SphereGeometry( 1, 100, 3 );
+    // var edges = new THREE.EdgesGeometry( geometry );
+    // var line = new THREE.LineSegments( edges, new THREE.LineBasicMaterial( { color: 0x00ff00 } ) );
+    // scene.add( line );
+
+
+    var material = new THREE.MeshLambertMaterial( { color: 0xFFCC00 } );
+    var sphere = new THREE.Mesh( geometry, material );
+
+    sphere.position.x = 1;
+    sphere.position.z = -3;
+
+
+    scene.add( sphere );
+
+    var light = new THREE.PointLight(0xffffff, 1, 500);
+    light.position.set(10,0,25);
+    scene.add(light);
+
+    camera.position.z = 3;
+
+    function animate() {
+    requestAnimationFrame( animate );
+    renderer.render( scene, camera );
+    sphere.rotation.x += 0.01;
+    sphere.rotation.y += 0.01;
+    }
+    animate();
+
+
+
+    </script>
+  </body>
+</html>
